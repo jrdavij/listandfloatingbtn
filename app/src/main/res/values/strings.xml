@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">listandfloatingbtn</string>
+
+    <string-array name="nomes">
+        <item>nome1</item>
+        <item>nome2</item>
+        <item>nome3</item>
+        <item>nome4</item>
+        <item>nome5</item>
+    </string-array>
+    <string-array name="autores">
+        <item>autor1</item>
+        <item>autor1</item>
+        <item>autor1</item>
+        <item>autor1</item>
+        <item>autor1</item>
+    </string-array>
+    <array name="imgs">
+        <item>@drawable/img</item>
+        <item>@drawable/img</item>
+        <item>@drawable/img</item>
+        <item>@drawable/img</item>
+        <item>@drawable/img</item>
+    </array>
 </resources>
