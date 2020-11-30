@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "816938115206",
+    "firebase_url": "https://appreceitas-2bdb8.firebaseio.com",
+    "project_id": "appreceitas-2bdb8",
+    "storage_bucket": "appreceitas-2bdb8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:816938115206:android:c119319b6732a5c206f107",
+        "android_client_info": {
+          "package_name": "com.example.listandfloatingbtn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "816938115206-tmj6rfqvurh2bfjroc63aotr3j2hbql8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCloTGyTeyNPqtRE6BSTOhiC5Bt00O67FM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "816938115206-tmj6rfqvurh2bfjroc63aotr3j2hbql8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
