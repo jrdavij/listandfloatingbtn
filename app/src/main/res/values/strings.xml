@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">listandfloatingbtn</string>
+    <string name="app_name">App de Receitas</string>
 
     <string-array name="nomes">
         <item>nome1</item>
