@@ -1,6 +1,7 @@
 package com.example.listandfloatingbtn;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,16 +11,25 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.List;
+
 public class Adaptador extends RecyclerView.Adapter<Adaptador.Holder> {
     String data1[], data2[];
-    int images[];
+
     Context context;
 
-    public Adaptador( Context context, String[] data1, String[] data2, int[] images) {
+    public Adaptador(Context context, String[] data1, String[] data2) {
+        this.context = context;
         this.data1 = data1;
         this.data2 = data2;
-        this.images = images;
-        this.context = context;
+
     }
 
     @NonNull
@@ -34,7 +44,7 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.Holder> {
     public void onBindViewHolder(@NonNull Adaptador.Holder holder, int position) {
         holder.txttitle.setText(data1[position]);
         holder.txtauthor.setText(data2[position]);
-        holder.img.setImageResource(images[position]);
+        holder.img.setImageResource(R.drawable.img);
 
     }
 

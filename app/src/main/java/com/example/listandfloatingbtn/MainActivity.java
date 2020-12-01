@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Application;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,27 +17,35 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "DocSnippets";
 
 
-    String s1[], s2[];
-    int images[] = {R.drawable.img,R.drawable.img,R.drawable.img,R.drawable.img,R.drawable.img};
+    final FirebaseFirestore db = FirebaseFirestore.getInstance();
     RecyclerView RecyclerView;
+    Adaptador a;
+    String data1[], data2[];
 
     Dialog dialog;
     AlertDialog.Builder dialogBuilder;
     EditText titulo, autor, receita;
     Button btcriar;
+
     public void dialogo(){
         dialogBuilder = new AlertDialog.Builder(this);
         final View criar = getLayoutInflater().inflate(R.layout.novo, null);
@@ -49,28 +58,45 @@ public class MainActivity extends AppCompatActivity {
         dialogBuilder.setView(criar);
         dialog = dialogBuilder.create();
         dialog.show();
+
+    }
+    public void load(){
+        final Context context = this;
+        db.collection("Receitas").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    data1 = new String[task.getResult().size()];
+                    data2 = new String[task.getResult().size()];
+
+                    for (int i = 0; i< data1.length ; i++){
+                        data1[i] = (String) task.getResult().getDocuments().get(i).get("titulo");
+                        data2[i] = (String) task.getResult().getDocuments().get(i).get("autor");
+                    }
+
+
+
+                    a = new Adaptador(context, data1, data2);
+                    RecyclerView.setAdapter(a);
+                }
+
+            }
+        });
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         RecyclerView = findViewById(R.id.lista);
-
-        s1 = getResources().getStringArray(R.array.nomes);
-        s2 = getResources().getStringArray(R.array.autores);
-
-        Adaptador a = new Adaptador(this, s1,s2, images);
         RecyclerView.setAdapter(a);
-        RecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        load();
+
+
+
 
         FloatingActionButton add = (FloatingActionButton) findViewById(R.id.add);
-        final FirebaseFirestore db = FirebaseFirestore.getInstance();;
-
-
-
-
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,28 +104,37 @@ public class MainActivity extends AppCompatActivity {
                 btcriar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //firebase thing
-                        Map<String, Object> recipe = new HashMap<>();
-                        recipe.put("titulo", "chocolate quente");
-                        recipe.put("autor", "copenhague");
-                        recipe.put("receita","pegue o pó de chocolate, leite e mistura tudo");
+                        String t, a, r;
+                        t = titulo.getText().toString();
+                        a = autor.getText().toString();
+                        r = receita.getText().toString();
+                        if (!t.isEmpty() && !a.isEmpty() && !r.isEmpty()){
+                            //firebase thing
+                            Map<String, Object> recipe = new HashMap<>();
+                            recipe.put("titulo", t);
+                            recipe.put("autor", a);
+                            recipe.put("receita", r);
 
-                        db.collection("Receitas")
-                                .add(recipe)
-                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                    @Override
-                                    public void onSuccess(DocumentReference documentReference) {
-                                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.w(TAG, "Error adding document", e);
-                                    }
-                                });
+                            db.collection("Receitas")
+                                    .add(recipe)
+                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                        @Override
+                                        public void onSuccess(DocumentReference documentReference) {
+                                            Log.d("db log: ", "DocumentSnapshot added with ID: " + documentReference.getId());
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w("db log: ", "Error adding document", e);
+                                        }
+                                    });
+                            dialog.dismiss();
+                        }
+                        else{
+                            //vazio
+                        }
 
-                        dialog.dismiss();
                     }
                 });
             }
@@ -107,7 +142,4 @@ public class MainActivity extends AppCompatActivity {
     }
     
 
-    private void c(){
-
-    }
 }
