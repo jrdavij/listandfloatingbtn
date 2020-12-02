@@ -6,16 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Application;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -23,14 +20,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
@@ -39,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     final FirebaseFirestore db = FirebaseFirestore.getInstance();
     RecyclerView RecyclerView;
     Adaptador a;
-    String data1[], data2[];
+    String data1[], data2[], data3[];
 
     Dialog dialog;
     AlertDialog.Builder dialogBuilder;
@@ -49,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     public void dialogo(){
         dialogBuilder = new AlertDialog.Builder(this);
         final View criar = getLayoutInflater().inflate(R.layout.novo, null);
-        titulo = criar.findViewById(R.id.txttitulo);
+        titulo = criar.findViewById(R.id.txtreceita);
         autor = criar.findViewById(R.id.txtautor);
         receita = criar.findViewById(R.id.txtreceita);
 
@@ -68,16 +61,19 @@ public class MainActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     data1 = new String[task.getResult().size()];
                     data2 = new String[task.getResult().size()];
+                    data3 = new String[task.getResult().size()];
 
                     for (int i = 0; i< data1.length ; i++){
                         data1[i] = (String) task.getResult().getDocuments().get(i).get("titulo");
                         data2[i] = (String) task.getResult().getDocuments().get(i).get("autor");
+                        data3[i] = (String) task.getResult().getDocuments().get(i).get("receita");
                     }
 
 
 
-                    a = new Adaptador(context, data1, data2);
+                    a = new Adaptador(context, data1, data2, data3);
                     RecyclerView.setAdapter(a);
+                    Log.d("Receitas obtidas: ", String.valueOf(data1.length));
                 }
 
             }
@@ -94,7 +90,13 @@ public class MainActivity extends AppCompatActivity {
         load();
 
 
-
+        Button btload = findViewById(R.id.btupdate);
+        btload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                load();
+            }
+        });
 
         FloatingActionButton add = (FloatingActionButton) findViewById(R.id.add);
         add.setOnClickListener(new View.OnClickListener() {
