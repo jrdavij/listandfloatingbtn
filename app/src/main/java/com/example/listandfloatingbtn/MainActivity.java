@@ -42,9 +42,9 @@ public class MainActivity extends AppCompatActivity {
     public void dialogo(){
         dialogBuilder = new AlertDialog.Builder(this);
         final View criar = getLayoutInflater().inflate(R.layout.novo, null);
-        titulo = criar.findViewById(R.id.txtreceita);
-        autor = criar.findViewById(R.id.txtautor);
-        receita = criar.findViewById(R.id.txtreceita);
+        titulo = criar.findViewById(R.id.novotitulo);
+        autor = criar.findViewById(R.id.novoautor);
+        receita = criar.findViewById(R.id.novareceita);
 
         btcriar = criar.findViewById(R.id.btcriar);
 

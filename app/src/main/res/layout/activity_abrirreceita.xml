@@ -17,18 +17,18 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/txttitulo"
+            android:id="@+id/vertitulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Receita x"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+            android:text="TextView"
+            android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/txtautor"
+            android:id="@+id/verautor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="autor" />
+            android:text="TextView"
+            android:textStyle="bold" />
 
         <View
             android:id="@+id/divider"
@@ -39,10 +39,10 @@
             android:background="?android:attr/listDivider" />
 
         <TextView
-            android:id="@+id/txtreceita"
+            android:id="@+id/verreceita"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="receita" />
+            android:text="TextView" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

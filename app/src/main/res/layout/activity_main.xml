@@ -14,8 +14,9 @@
 
         <Button
             android:id="@+id/btupdate"
-            android:layout_width="match_parent"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:backgroundTint="@color/colorAccent"
             android:text="Update"
             android:textColor="@color/common_google_signin_btn_text_dark" />

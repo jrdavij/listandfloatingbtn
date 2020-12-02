@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/txttitulo"
+            android:id="@+id/novotitulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Receita x"
@@ -24,7 +24,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/txtautor"
+            android:id="@+id/novoautor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="autor" />
@@ -38,7 +38,7 @@
             android:background="?android:attr/listDivider" />
 
         <TextView
-            android:id="@+id/txtreceita"
+            android:id="@+id/novotitulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="receita" />

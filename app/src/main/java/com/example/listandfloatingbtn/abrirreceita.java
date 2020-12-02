@@ -13,11 +13,12 @@ public class abrirreceita extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_abrirreceita);
 
-        titulo = findViewById(R.id.txttitulo);
-        autor = findViewById(R.id.txtautor);
-        receita = findViewById(R.id.txtreceita);
+        titulo = findViewById(R.id.vertitulo);
+        autor = findViewById(R.id.verautor);
+        receita = findViewById(R.id.verreceita);
 
         titulo.setText(getIntent().getStringExtra("titulo"));
         autor.setText(getIntent().getStringExtra("autor"));
+        receita.setText(getIntent().getStringExtra("receita"));
     }
 }
